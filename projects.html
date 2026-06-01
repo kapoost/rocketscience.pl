@@ -10,16 +10,18 @@
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="/">rocketscience.pl</a>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/projects" aria-current="page">Projects</a>
-    <a href="/writing">Writing</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-  </nav>
-</header>
+<div class="bios-title">
+  kapoost BIOS Edition v3.1 — Setup Utility
+  <span class="copy">(C) 2026 Łukasz Kapuśniak — All Rights Reserved</span>
+</div>
+<nav class="bios-tabs">
+  <a href="/">Main</a>
+  <a href="/about">About</a>
+  <a href="/projects" aria-current="page">Projects</a>
+  <a href="/writing">Writing</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy">Exit</a>
+</nav>
 
 <main>
   <h1>Projects</h1>
@@ -106,8 +108,16 @@
   <p>The full list — including older sandboxes and finished experiments — is on <a href="https://github.com/kapoost?tab=repositories">github.com/kapoost?tab=repositories</a>.</p>
 </main>
 
-<footer>
-  <p>© 2026 Łukasz Kapuśniak · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a> · <a href="https://github.com/kapoost">GitHub</a> · <a href="https://kapoost.humanmcp.net">humanMCP</a></p>
+<footer class="bios-status">
+  <div class="keys">
+    <span><kbd>F1</kbd>Help</span>
+    <span><kbd>←→</kbd>Tab</span>
+    <span><kbd>ENTER</kbd>Select</span>
+    <span><kbd>ESC</kbd>Back</span>
+    <span><kbd>F10</kbd>Exit</span>
+  </div>
+  <span class="meta clock">—</span>
 </footer>
+<script src="/bios.js" defer></script>
 </body>
 </html>
