@@ -1,21 +1,21 @@
 (() => {
   const tabs = [
-    { path: '/',         hint: 'h', label: 'Main' },
-    { path: '/about',    hint: 'a', label: 'About' },
-    { path: '/projects', hint: 'p', label: 'Projects' },
-    { path: '/writing',  hint: 'w', label: 'Writing' },
-    { path: '/contact',  hint: 'c', label: 'Contact' },
-    { path: '/privacy',  hint: 'x', label: 'Exit' },
+    { path: '/',         hint: 'h' },
+    { path: '/about',    hint: 'a' },
+    { path: '/projects', hint: 'p' },
+    { path: '/writing',  hint: 'w' },
+    { path: '/contact',  hint: 'c' },
+    { path: '/privacy',  hint: 's' },
   ];
   const paths = tabs.map(t => t.path);
   const path = window.location.pathname.replace(/\/$/, '') || '/';
   const go = (href) => { if (href !== path) window.location.href = href; };
 
-  /* ── POST boot screen ─────────────────────────────────────────── */
-  const BOOT_KEY = 'rs.booted';
+  const BOOT_KEY    = 'rs.booted';
+  const CONSENT_KEY = 'rs.consent';
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const skipBoot = sessionStorage.getItem(BOOT_KEY) === '1' || reduceMotion;
 
+  /* ── Boot screen (supports fast / slow / forced) ─────────────── */
   const bootLines = [
     { t: 'head', s: 'kapoost BIOS Edition v3.1 — Award Modular BIOS' },
     { t: 'head', s: '(C) 2026 Łukasz Kapuśniak — All Rights Reserved' },
@@ -38,12 +38,20 @@
     { t: 'prompt', s: 'Press any key to enter SETUP ...' },
   ];
 
-  function runBoot() {
-    if (skipBoot) return Promise.resolve();
+  function runBoot(opts = {}) {
+    const slow = opts.slow === true;
+    const forced = opts.forced === true;
+    if (!forced && (sessionStorage.getItem(BOOT_KEY) === '1' || reduceMotion)) {
+      return Promise.resolve();
+    }
     const el = document.createElement('div');
     el.className = 'bios-boot';
     el.setAttribute('role', 'presentation');
     document.body.appendChild(el);
+
+    const stepBig   = slow ? 180 : 70;
+    const stepSmall = slow ?  70 : 30;
+    const tail      = slow ? 800 : 350;
 
     return new Promise((resolve) => {
       let i = 0;
@@ -64,7 +72,7 @@
           el.appendChild(ok);
         }
         el.appendChild(document.createTextNode('\n'));
-        setTimeout(tick, line.s ? 70 : 30);
+        setTimeout(tick, line.s ? stepBig : stepSmall);
       };
 
       const finish = () => {
@@ -72,26 +80,27 @@
         setTimeout(() => {
           el.classList.add('fading');
           setTimeout(() => { el.remove(); resolve(); }, 320);
-        }, 350);
+        }, tail);
       };
 
       const skip = (e) => {
         if (e.type === 'keydown' && (e.ctrlKey || e.metaKey || e.altKey)) return;
+        if (forced) return;            // forced reboot is not skippable
         e.preventDefault();
         document.removeEventListener('keydown', skip, true);
         el.removeEventListener('click', skip);
         finish();
       };
-      document.addEventListener('keydown', skip, true);
-      el.addEventListener('click', skip);
-
+      if (!forced) {
+        document.addEventListener('keydown', skip, true);
+        el.addEventListener('click', skip);
+      }
       tick();
     });
   }
 
-  /* ── Keyboard nav (modern, cross-browser) ────────────────────── */
-  let gPending = false;
-  let gTimer = 0;
+  /* ── Keyboard nav ─────────────────────────────────────────────── */
+  let gPending = false, gTimer = 0;
 
   function helpDialog() {
     alert(
@@ -104,7 +113,7 @@
       '  g p     Go to Projects\n' +
       '  g w     Go to Writing\n' +
       '  g c     Go to Contact\n' +
-      '  g x     Go to Exit\n' +
+      '  g s     Go to Save\n' +
       '  ?       This dialog\n\n' +
       'Tip (Safari): enable Settings → Advanced → ' +
       '"Press Tab to highlight each item on a webpage" ' +
@@ -118,7 +127,6 @@
       if (t && t.matches('input, textarea, [contenteditable]')) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
 
-      // Two-stroke "g <hint>" GitHub-style jump
       if (gPending) {
         const target = tabs.find(x => x.hint === e.key.toLowerCase());
         gPending = false;
@@ -129,21 +137,18 @@
 
       switch (e.key) {
         case '?':
-          e.preventDefault();
-          helpDialog();
-          break;
+          e.preventDefault(); helpDialog(); break;
         case 'Escape':
-          if (path !== '/') { e.preventDefault(); go('/'); }
-          break;
+          if (path !== '/') { e.preventDefault(); go('/'); } break;
         case 'ArrowLeft':
         case 'ArrowRight': {
           const i = paths.indexOf(path);
           if (i < 0) return;
           e.preventDefault();
-          const next = e.key === 'ArrowLeft'
+          const n = e.key === 'ArrowLeft'
             ? (i - 1 + paths.length) % paths.length
             : (i + 1) % paths.length;
-          go(paths[next]);
+          go(paths[n]);
           break;
         }
         case 'g':
@@ -171,5 +176,46 @@
     setInterval(tick, 1000);
   }
 
-  runBoot().then(() => { bindNav(); bindClock(); });
+  /* ── Exit button = forced slow reboot, then reload ───────────── */
+  function bindExit() {
+    document.querySelectorAll('[data-exit]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.removeItem(BOOT_KEY);
+        runBoot({ slow: true, forced: true }).then(() => location.reload());
+      });
+    });
+  }
+
+  /* ── Cookie consent banner (prowizoryczne — do Google CMP) ───── */
+  function consentBanner() {
+    if (localStorage.getItem(CONSENT_KEY)) return;
+    const el = document.createElement('div');
+    el.className = 'bios-consent';
+    el.innerHTML =
+      '<span class="msg">Cookies for Google AdSense. Choose how you want them set.</span>' +
+      '<button type="button" data-consent="all">Accept all</button>' +
+      '<button type="button" data-consent="limited">Necessary only</button>' +
+      '<a href="/privacy">Read more</a>';
+    document.body.appendChild(el);
+    el.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-consent]');
+      if (!t) return;
+      const v = t.dataset.consent;
+      localStorage.setItem(CONSENT_KEY, v);
+      // Best-effort signal to AdSense; the real consent layer will be
+      // Google CMP (Funding Choices) once AdSense review is complete.
+      if (v === 'limited' && window.adsbygoogle) {
+        window.adsbygoogle.requestNonPersonalizedAds = 1;
+      }
+      el.remove();
+    });
+  }
+
+  runBoot().then(() => {
+    bindNav();
+    bindClock();
+    bindExit();
+    consentBanner();
+  });
 })();
