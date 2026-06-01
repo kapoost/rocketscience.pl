@@ -225,6 +225,30 @@ footer.bios-status .meta {
 .cmos.show { display: block; animation: blink 2.4s infinite; }
 @keyframes blink { 50% { opacity: 0.35; } }
 
+/* Boot overlay */
+.bios-boot {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  padding: 2ch 3ch;
+  z-index: 9999;
+  overflow: hidden;
+  white-space: pre-wrap;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.bios-boot[hidden] { display: none; }
+.bios-boot.fading { opacity: 0; pointer-events: none; }
+.bios-boot .head { color: var(--highlight); }
+.bios-boot .ok { color: #5FFF87; }
+.bios-boot .info { color: var(--accent); }
+.bios-boot .prompt { color: var(--highlight); }
+.bios-boot .cursor { animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
 /* Mobile */
 @media (max-width: 640px) {
   html { font-size: 13px; }
