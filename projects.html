@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projects — Rocket Science Lab</title>
+<meta name="description" content="Projects from Rocket Science Lab: Purrsonality, AdCP seller agents, signal providers, humanMCP.">
+<link rel="canonical" href="https://rocketscience.pl/projects.html">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="/">Rocket Science Lab</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/projects.html" aria-current="page">Projects</a>
+    <a href="/writing.html">Writing</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Projects</h1>
+  <p class="lede">In production, in development, and in the long-tail of half-finished but instructive.</p>
+
+  <div class="project" id="purrsonality">
+    <span class="tag">In production</span> <span class="tag">AdCP</span>
+    <h2 style="border:none;margin-top:0.5rem;padding:0">Purrsonality</h2>
+    <p>A cat-personality quiz that doubles as a working AdCP seller agent. Visitors answer a handful of questions, get a result page describing their cat's archetype (Velvet Whisper, Daring Explorer, Tiny Tornado, Sly Trickster, Tiny Tyrant), and along the way the site quietly becomes a real ad publisher.</p>
+    <p>Under the hood it runs on Astro and Cloudflare Pages with a hand-rolled AdCP request dispatcher, RFC 9421 HTTP message signatures for transport authentication, and signal segmentation derived from quiz answers. It is one of the smallest production AdCP sellers in existence — and a useful proving ground for everything I want to push back upstream.</p>
+    <p>Public site: <a href="https://purrsonality.rocketscience.pl">purrsonality.rocketscience.pl</a> (alias: <code>purrsonality.pages.dev</code>).</p>
+  </div>
+
+  <div class="project" id="adcp">
+    <span class="tag">Active</span> <span class="tag">Open standard</span>
+    <h2 style="border:none;margin-top:0.5rem;padding:0">AdCP — Ad Context Protocol</h2>
+    <p>The <a href="https://adcontextprotocol.org">Ad Context Protocol</a> is the open spec that lets AI agents talk to publishers about advertising — discovering inventory, finalising proposals, executing media buys, reporting back. My work here splits into three threads:</p>
+    <ul>
+      <li>A seller-side reference agent built on the <code>@adcp/sdk</code>, used as a working baseline for storyboard compliance.</li>
+      <li>Storyboard scenarios and schema fixes for the upstream <code>adcontextprotocol/adcp</code> repository — small contributions that mostly close gaps no one else hit yet.</li>
+      <li>A growing local pack of governance storyboards (token expiry, late approval, self-affiliated advisory) parked until the relevant working groups settle the governance surface.</li>
+    </ul>
+  </div>
+
+  <div class="project" id="signals">
+    <span class="tag">Active</span> <span class="tag">Monorepo</span>
+    <h2 style="border:none;margin-top:0.5rem;padding:0">Signals — AdCP signal provider</h2>
+    <p>A small monorepo built around the AdCP signals surface: a shared core, a vanilla provider, a Purrsonality-specific provider, and (soon) a geographic provider seeded from a few million OpenStreetMap points of interest. The goal is a clean reference for how a signal provider answers the <code>get_signals</code> and <code>activate_signal</code> tasks without leaking implementation noise.</p>
+  </div>
+
+  <div class="project" id="humanmcp">
+    <span class="tag">Active</span> <span class="tag">Indie web</span>
+    <h2 style="border:none;margin-top:0.5rem;padding:0">humanMCP</h2>
+    <p><a href="https://kapoost.humanmcp.net">kapoost.humanmcp.net</a> is my personal MCP server — a small endpoint that lets language models (and other agents) ask things about me directly, on my terms, using rotating session codes and a guardian persona that handles operational safety. It is my answer to the question of where personal identity should live in an agentic web.</p>
+  </div>
+
+  <div class="project" id="writing">
+    <span class="tag">Ongoing</span>
+    <h2 style="border:none;margin-top:0.5rem;padding:0">Writing</h2>
+    <p>Short poems, mostly Polish. See <a href="/writing.html">Writing</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Łukasz Kapuśniak · <a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a> · <a href="https://kapoost.humanmcp.net">humanMCP</a></p>
+</footer>
+</body>
+</html>

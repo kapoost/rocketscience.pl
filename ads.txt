@@ -1,0 +1,8 @@
+# ads.txt — authorized digital sellers for rocketscience.pl
+# https://iabtechlab.com/ads-txt/
+#
+# TODO: replace PUB-PLACEHOLDER below with the actual AdSense publisher ID
+# (format: pub-XXXXXXXXXXXXXXXX) before deployment, otherwise the
+# AdSense site review will not progress.
+
+google.com, pub-PUB-PLACEHOLDER, DIRECT, f08c47fec0942fa0

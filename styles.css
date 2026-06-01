@@ -1,0 +1,141 @@
+:root {
+  --bg: #faf8f3;
+  --fg: #1a1a1a;
+  --dim: #555;
+  --line: #d6d2c8;
+  --accent: #b8421f;
+  --code-bg: #efeae0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15161a;
+    --fg: #e8e6e0;
+    --dim: #999;
+    --line: #2e2f35;
+    --accent: #ff7a4d;
+    --code-bg: #1f2128;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font: 16px/1.55 ui-serif, Georgia, "Iowan Old Style", serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1.5rem 4rem;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+header a.brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+nav {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+nav a {
+  margin-right: 1.2rem;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+nav a:hover, nav a[aria-current="page"] {
+  color: var(--accent);
+}
+
+h1 {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 2.5rem 0 0.75rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.3rem;
+}
+
+h3 { font-size: 1.05rem; margin: 1.5rem 0 0.4rem; }
+
+p { margin: 0.6rem 0 1rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.lede {
+  font-size: 1.1rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
+ul { padding-left: 1.2rem; }
+li { margin: 0.3rem 0; }
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--dim);
+  font-style: italic;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+footer a { color: var(--dim); }
+
+.project {
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.project:last-child { border-bottom: none; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1em 0.5em;
+  background: var(--code-bg);
+  color: var(--dim);
+  border-radius: 3px;
+  margin-right: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
