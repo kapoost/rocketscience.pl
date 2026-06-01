@@ -1,5 +1,13 @@
 (() => {
-  const tabs = ['/', '/about', '/projects', '/writing', '/contact', '/privacy'];
+  const tabs = [
+    { path: '/',         hint: 'h', label: 'Main' },
+    { path: '/about',    hint: 'a', label: 'About' },
+    { path: '/projects', hint: 'p', label: 'Projects' },
+    { path: '/writing',  hint: 'w', label: 'Writing' },
+    { path: '/contact',  hint: 'c', label: 'Contact' },
+    { path: '/privacy',  hint: 'x', label: 'Exit' },
+  ];
+  const paths = tabs.map(t => t.path);
   const path = window.location.pathname.replace(/\/$/, '') || '/';
   const go = (href) => { if (href !== path) window.location.href = href; };
 
@@ -40,10 +48,7 @@
     return new Promise((resolve) => {
       let i = 0;
       const tick = () => {
-        if (i >= bootLines.length) {
-          finish();
-          return;
-        }
+        if (i >= bootLines.length) { finish(); return; }
         const line = bootLines[i++];
         const span = document.createElement('span');
         if (line.t) span.className = line.t;
@@ -84,41 +89,69 @@
     });
   }
 
-  /* ── Keyboard nav ─────────────────────────────────────────────── */
+  /* ── Keyboard nav (modern, cross-browser) ────────────────────── */
+  let gPending = false;
+  let gTimer = 0;
+
+  function helpDialog() {
+    alert(
+      'kapoost BIOS Edition v3.1 — Keyboard\n\n' +
+      '  ← →     Switch tab\n' +
+      '  ENTER   Follow focused link\n' +
+      '  ESC     Back to Main\n' +
+      '  g h     Go to Main\n' +
+      '  g a     Go to About\n' +
+      '  g p     Go to Projects\n' +
+      '  g w     Go to Writing\n' +
+      '  g c     Go to Contact\n' +
+      '  g x     Go to Exit\n' +
+      '  ?       This dialog\n\n' +
+      'Tip (Safari): enable Settings → Advanced → ' +
+      '"Press Tab to highlight each item on a webpage" ' +
+      'to cycle focus through links.'
+    );
+  }
+
   function bindNav() {
     document.addEventListener('keydown', (e) => {
       const t = e.target;
       if (t && t.matches('input, textarea, [contenteditable]')) return;
       if (e.ctrlKey || e.metaKey || e.altKey) return;
 
+      // Two-stroke "g <hint>" GitHub-style jump
+      if (gPending) {
+        const target = tabs.find(x => x.hint === e.key.toLowerCase());
+        gPending = false;
+        clearTimeout(gTimer);
+        if (target) { e.preventDefault(); go(target.path); return; }
+        return;
+      }
+
       switch (e.key) {
-        case 'F1':
+        case '?':
           e.preventDefault();
-          alert(
-            'kapoost BIOS Edition v3.1 — Setup Utility\n\n' +
-            '  ← →    Switch tab\n' +
-            '  ENTER  Follow focused link\n' +
-            '  TAB    Move focus within page\n' +
-            '  ESC    Back to Main\n' +
-            '  F1     Help (this dialog)\n' +
-            '  F10    Save & Exit (Main)\n'
-          );
+          helpDialog();
           break;
-        case 'F10':
         case 'Escape':
           if (path !== '/') { e.preventDefault(); go('/'); }
           break;
         case 'ArrowLeft':
         case 'ArrowRight': {
-          const i = tabs.indexOf(path);
+          const i = paths.indexOf(path);
           if (i < 0) return;
           e.preventDefault();
           const next = e.key === 'ArrowLeft'
-            ? (i - 1 + tabs.length) % tabs.length
-            : (i + 1) % tabs.length;
-          go(tabs[next]);
+            ? (i - 1 + paths.length) % paths.length
+            : (i + 1) % paths.length;
+          go(paths[next]);
           break;
         }
+        case 'g':
+        case 'G':
+          e.preventDefault();
+          gPending = true;
+          gTimer = setTimeout(() => { gPending = false; }, 1200);
+          break;
       }
     });
   }
