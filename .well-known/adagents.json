@@ -1,0 +1,39 @@
+{
+  "$schema": "https://adcontextprotocol.org/schemas/v3/adagents.json",
+  "properties": [
+    {
+      "property_id": "rocketscience.pl",
+      "name": "rocketscience.pl — kapoost",
+      "type": "website",
+      "url": "https://rocketscience.pl",
+      "categories": [
+        "technology",
+        "publishing",
+        "personal_site"
+      ],
+      "languages": ["en", "pl"],
+      "inventory": {
+        "type": "display",
+        "format": "adsense_managed",
+        "placement": "in_content",
+        "notes": "Display inventory is monetized via Google AdSense (publisher id pub-5966738693035119). No AdCP-authorized sales agent at this time."
+      }
+    }
+  ],
+  "authorized_agents": [],
+  "last_updated": "2026-06-08T00:00:00Z",
+  "contact": {
+    "name": "kapoost",
+    "email": "kapoost@gmail.com",
+    "domain": "kapoost.humanmcp.net"
+  },
+  "publisher": {
+    "name": "rocketscience.pl",
+    "url": "https://rocketscience.pl",
+    "author": "kapoost",
+    "author_url": "https://kapoost.humanmcp.net"
+  },
+  "discovery": {
+    "llms_txt": "https://rocketscience.pl/llms.txt"
+  }
+}
