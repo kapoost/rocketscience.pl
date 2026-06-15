@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Projects — rocketscience.pl</title>
-<meta name="description" content="Public projects by kapoost on GitHub: AdCP seller agents, signal providers, humanMCP, mysloodsiewnia RAG, seestar-kiosk and more.">
+<meta name="description" content="Public projects by kapoost on GitHub: bragent (AdCP SI brand agent), purrsonality-seller-agent, adcp-signals, humanMCP, mysloodsiewnia RAG, seestar-kiosk and more.">
 <link rel="canonical" href="https://rocketscience.pl/projects">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5966738693035119" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/styles.css">
@@ -30,17 +30,24 @@
 
   <h2>Active</h2>
 
+  <div class="project" id="bragent">
+    <span class="tag">Active</span> <span class="tag">AdCP SI</span> <span class="tag">Go</span> <span class="tag">Apache-2.0</span>
+    <h3>bragent</h3>
+    <p>Open-source AdCP Sponsored Intelligence brand agent. Self-hosted, single Go binary. Implements MCP-native <code>si_get_offering</code> off a configurable product feed, plus the M6.x <code>sponsored_context</code> envelope + receipt audit path that lands brand-side reference for AdCP rc.14 conformance. Public <code>/demo/</code> panel with BYOK and an auto-receipt wire view.</p>
+    <p>Repo: <a href="https://github.com/kapoost/bragent">github.com/kapoost/bragent</a> · Upstream PR: <a href="https://github.com/adcontextprotocol/adcp/pull/5501">adcp#5501</a> (referenced from issue <a href="https://github.com/adcontextprotocol/adcp/issues/5541">#5541</a>).</p>
+  </div>
+
   <div class="project" id="purrsonality-seller-agent">
     <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
     <h3>purrsonality-seller-agent</h3>
-    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk</code> 7.11.0 + Postgres + Fly.io. Storyboard compliance baseline: <strong>131 passed / 1 failed / 53 skipped</strong> against the current AdCP 3.1 RC runner.</p>
+    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk</code> + Postgres + Fly.io. Production runs on 7.11.0; a <code>bridge/sdk-9x-preflight</code> branch is the migration runway for 3.1 → SDK 9.x. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09.</p>
     <p>Repo: <a href="https://github.com/kapoost/purrsonality-seller-agent">github.com/kapoost/purrsonality-seller-agent</a> · Live: <a href="https://purrsonality.rocketscience.pl">purrsonality.rocketscience.pl</a></p>
   </div>
 
   <div class="project" id="adcp-signals">
     <span class="tag">Active</span> <span class="tag">Monorepo</span> <span class="tag">TypeScript</span>
     <h3>adcp-signals</h3>
-    <p>Signal-owned agent monorepo for AdCP: pluggable core framework plus per-publisher catalog variants (<code>vanilla</code>, <code>cats</code>, more on the way). Reference for how a signal provider answers <code>get_signals</code> and <code>activate_signal</code> without leaking implementation noise.</p>
+    <p>Signal-owned agent monorepo for AdCP: pluggable core framework plus per-publisher catalog variants (<code>vanilla</code>, <code>cats</code>, more on the way). Reference for how a signal provider answers <code>get_signals</code> and <code>activate_signal</code> without leaking implementation noise. Vector-based signals direction parked after the 2026-06-02 narada — notes in <code>NOTES-vector-based-signals.md</code>.</p>
     <p>Repo: <a href="https://github.com/kapoost/adcp-signals">github.com/kapoost/adcp-signals</a></p>
   </div>
 
@@ -93,14 +100,19 @@
 
   <ul>
     <li><strong>Merged</strong>: <a href="https://github.com/adcontextprotocol/adcp/pull/4918">#4918</a> — <code>docs(accounts)</code>: clarify single-publisher cardinality on <code>list_accounts</code>.</li>
-    <li><strong>Open</strong>: <a href="https://github.com/adcontextprotocol/adcp/issues/4497">#4497</a> — <code>brand.json</code>: add structural category restrictions and jurisdiction fields.</li>
+    <li><strong>Open</strong>:
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5541">#5541</a> — <code>feat(si)</code>: bragent ships brand-side reference impl for <code>sponsored_context_accountability</code> (PR <a href="https://github.com/adcontextprotocol/adcp/pull/5501">#5501</a>);
+      <a href="https://github.com/adcontextprotocol/adcp/issues/4497">#4497</a> — <code>brand.json</code>: add structural category restrictions and jurisdiction fields.
+    </li>
     <li><strong>Closed issues that drove fixes upstream</strong>:
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5449">#5449</a> (<code>--compliance-version</code> not cascaded to AJV validator — version skew),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5258">#5258</a> (<code>InMemoryTaskRegistry</code> not flushed by <code>AdcpServer.compliance.reset()</code>),
       <a href="https://github.com/adcontextprotocol/adcp/issues/5013">#5013</a> (<code>check_publisher_authorization</code> false negative),
-      <a href="https://github.com/adcontextprotocol/adcp/issues/4914">#4914</a> (pagination_integrity unsatisfiable for single-publisher sellers),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/4914">#4914</a> (<code>pagination_integrity</code> unsatisfiable for single-publisher sellers),
       <a href="https://github.com/adcontextprotocol/adcp/issues/4832">#4832</a> (v3 envelope integrity vs SDK 7.7.0 drift),
-      <a href="https://github.com/adcontextprotocol/adcp/issues/4831">#4831</a> (security_baseline assert_mechanism for Bearer-only sellers),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/4831">#4831</a> (<code>security_baseline</code> assert_mechanism for Bearer-only sellers),
       <a href="https://github.com/adcontextprotocol/adcp/issues/4776">#4776</a> (<code>adagents.json</code> authorization_type underdocumented),
-      <a href="https://github.com/adcontextprotocol/adcp/issues/4775">#4775</a> (validate_agent stale-cache bug),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/4775">#4775</a> (<code>validate_agent</code> stale-cache bug),
       <a href="https://github.com/adcontextprotocol/adcp/issues/4196">#4196</a> (<code>pending_creatives</code> status-name ambiguity).
     </li>
   </ul>
@@ -114,7 +126,7 @@
     <span><kbd>←→</kbd>Tab</span>
     <span><kbd>ENTER</kbd>Select</span>
     <span><kbd>ESC</kbd>Back</span>
-    <span><kbd>g</kbd>+<kbd>h/a/p/w/c/x</kbd>Jump</span>
+    <span><kbd>g</kbd>+<kbd>h/a/p/w/c/s</kbd>Jump</span>
     <span><kbd>?</kbd>Help</span>
   </div>
   <span class="meta clock">—</span>
