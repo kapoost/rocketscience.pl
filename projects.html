@@ -40,8 +40,15 @@
   <div class="project" id="purrsonality-seller-agent">
     <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
     <h3>purrsonality-seller-agent</h3>
-    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk</code> + Postgres + Fly.io. Production runs on 7.11.0; a <code>bridge/sdk-9x-preflight</code> branch is the migration runway for 3.1 → SDK 9.x. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09.</p>
+    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk 9.3.0</code> + Postgres + Fly.io. SDK 9.x migration landed on <code>main</code>; the <code>bridge/sdk-9x-preflight</code> runway is retired. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09. Phase-A ad server now attributes live impressions to the correct <code>media_buy_id</code> via reverse creative-assignment lookup, so <code>get_media_buy_delivery</code> returns real numbers instead of zeros. Fly machines run <code>auto_stop=suspend</code> — snapshot wake ~200ms instead of a 3s cold boot.</p>
     <p>Repo: <a href="https://github.com/kapoost/purrsonality-seller-agent">github.com/kapoost/purrsonality-seller-agent</a> · Live: <a href="https://purrsonality.rocketscience.pl">purrsonality.rocketscience.pl</a></p>
+  </div>
+
+  <div class="project" id="abzu">
+    <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
+    <h3>abzu</h3>
+    <p>AdCP buyer-side orchestrator: <code>get_products</code> fan-out over multiple sellers, governance gate (<code>check_governance</code> → <code>create_media_buy</code> → <code>report_plan_outcome</code>), and <code>sync_creatives</code> + <code>update_media_buy</code> assignment so served impressions link back to the caller's buy. Ships with a static GUI (<code>abzu-gui</code>) covering the full linear thread — Jordan reviewer → Sam operator → Publisher operator → Sponsor read-only. Twelve real sellers wired in from the AAO registry, with a failure classifier that reports <em>why</em> a seller didn't respond (auth, timeout, unreachable, version, protocol) instead of dumping every failure into "incompatible".</p>
+    <p>Repo: <a href="https://github.com/kapoost/abzu-orchestrator">github.com/kapoost/abzu-orchestrator</a> · GUI: <a href="https://github.com/kapoost/abzu-gui">github.com/kapoost/abzu-gui</a> · Live: <a href="https://abzu.rocketscience.pl">abzu.rocketscience.pl</a></p>
   </div>
 
   <div class="project" id="adcp-signals">
