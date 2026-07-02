@@ -53,7 +53,7 @@
     <h3>abzu</h3>
     <p>AdCP buyer-side orchestrator: <code>get_products</code> fan-out over multiple sellers, governance gate (<code>check_governance</code> → <code>create_media_buy</code> → <code>report_plan_outcome</code>), and <code>sync_creatives</code> + <code>update_media_buy</code> assignment so served impressions link back to the caller's buy. Ships with a static GUI (<code>abzu-gui</code>) covering the full linear thread — Jordan reviewer → Sam operator → Publisher operator → Sponsor read-only. Twelve real sellers wired in from the AAO registry, with a failure classifier that reports <em>why</em> a seller didn't respond (auth, timeout, unreachable, version, protocol) instead of dumping every failure into "incompatible".</p>
     <p>AAO compliance: Abzu Orchestrator (buying) Core Protocol 32/32 silent on 3.1. Governance side (Abzu Governance) passes Core + Campaign Governance + Error Handling 6/7 on 3.1.</p>
-    <p>Repo: <a href="https://github.com/kapoost/abzu-orchestrator">github.com/kapoost/abzu-orchestrator</a> · GUI: <a href="https://github.com/kapoost/abzu-gui">github.com/kapoost/abzu-gui</a> · Live: <a href="https://abzu.rocketscience.pl">abzu.rocketscience.pl</a></p>
+    <p>Repos: <a href="https://github.com/kapoost/abzu-orchestrator">abzu-orchestrator</a> · <a href="https://github.com/kapoost/abzu-governance">abzu-governance</a> · <a href="https://github.com/kapoost/abzu-gui">abzu-gui</a> · Live: <a href="https://abzu.rocketscience.pl">abzu.rocketscience.pl</a></p>
   </div>
 
   <div class="project" id="adcp-signals">
