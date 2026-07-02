@@ -39,20 +39,27 @@
 
   <div class="project" id="purrsonality-seller-agent">
     <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
+    <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fseller.purrsonality.rocketscience.pl%2Fmcp"><img alt="AAO Verified Media Buy Agent 3.0" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fseller.purrsonality.rocketscience.pl%2Fmcp/badge/media-buy/3.0.svg" style="height:1.1em;vertical-align:middle"></a>
     <h3>purrsonality-seller-agent</h3>
     <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk 9.3.0</code> + Postgres + Fly.io. SDK 9.x migration landed on <code>main</code>; the <code>bridge/sdk-9x-preflight</code> runway is retired. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09. Phase-A ad server now attributes live impressions to the correct <code>media_buy_id</code> via reverse creative-assignment lookup, so <code>get_media_buy_delivery</code> returns real numbers instead of zeros. Fly machines run <code>auto_stop=suspend</code> — snapshot wake ~200ms instead of a 3s cold boot.</p>
+    <p>AAO compliance: Product Discovery / Creative Management / Reporting &amp; Delivery / Error Handling PASS on AdCP 3.1. Two Media Buy Lifecycle scenarios and one Core pagination scenario blocked on upstream <code>@adcp/sdk 9.3</code> wire-projection issues (drafts in the repo's <code>docs/upstream-issues/</code>).</p>
     <p>Repo: <a href="https://github.com/kapoost/purrsonality-seller-agent">github.com/kapoost/purrsonality-seller-agent</a> · Live: <a href="https://purrsonality.rocketscience.pl">purrsonality.rocketscience.pl</a></p>
   </div>
 
   <div class="project" id="abzu">
     <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
+    <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fapi.rocketscience.pl%2Fmcp"><img alt="AAO Verified Media Buy Agent 3.1" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fapi.rocketscience.pl%2Fmcp/badge/media-buy/3.1.svg" style="height:1.1em;vertical-align:middle"></a>
+    <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fgovernance.rocketscience.pl%2Fmcp"><img alt="AAO Verified Governance Agent 3.1" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fgovernance.rocketscience.pl%2Fmcp/badge/governance/3.1.svg" style="height:1.1em;vertical-align:middle"></a>
     <h3>abzu</h3>
     <p>AdCP buyer-side orchestrator: <code>get_products</code> fan-out over multiple sellers, governance gate (<code>check_governance</code> → <code>create_media_buy</code> → <code>report_plan_outcome</code>), and <code>sync_creatives</code> + <code>update_media_buy</code> assignment so served impressions link back to the caller's buy. Ships with a static GUI (<code>abzu-gui</code>) covering the full linear thread — Jordan reviewer → Sam operator → Publisher operator → Sponsor read-only. Twelve real sellers wired in from the AAO registry, with a failure classifier that reports <em>why</em> a seller didn't respond (auth, timeout, unreachable, version, protocol) instead of dumping every failure into "incompatible".</p>
+    <p>AAO compliance: Abzu Orchestrator (buying) Core Protocol 32/32 silent on 3.1. Governance side (Abzu Governance) passes Core + Campaign Governance + Error Handling 6/7 on 3.1.</p>
     <p>Repo: <a href="https://github.com/kapoost/abzu-orchestrator">github.com/kapoost/abzu-orchestrator</a> · GUI: <a href="https://github.com/kapoost/abzu-gui">github.com/kapoost/abzu-gui</a> · Live: <a href="https://abzu.rocketscience.pl">abzu.rocketscience.pl</a></p>
   </div>
 
   <div class="project" id="adcp-signals">
     <span class="tag">Active</span> <span class="tag">Monorepo</span> <span class="tag">TypeScript</span>
+    <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fsignals.purrsonality.rocketscience.pl%2Fmcp"><img alt="AAO Verified Signals Agent 3.1" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fsignals.purrsonality.rocketscience.pl%2Fmcp/badge/signals/3.1.svg" style="height:1.1em;vertical-align:middle"></a>
+    <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fsignals.purrsonality.rocketscience.pl%2Fmcp"><img alt="AAO Verified Signals Agent 3.0" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fsignals.purrsonality.rocketscience.pl%2Fmcp/badge/signals/3.0.svg" style="height:1.1em;vertical-align:middle"></a>
     <h3>adcp-signals</h3>
     <p>Signal-owned agent monorepo for AdCP: pluggable core framework plus per-publisher catalog variants (<code>vanilla</code>, <code>cats</code>, more on the way). Reference for how a signal provider answers <code>get_signals</code> and <code>activate_signal</code> without leaking implementation noise. Vector-based signals direction parked after the 2026-06-02 narada — notes in <code>NOTES-vector-based-signals.md</code>.</p>
     <p>Repo: <a href="https://github.com/kapoost/adcp-signals">github.com/kapoost/adcp-signals</a></p>
