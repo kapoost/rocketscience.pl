@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Projects — rocketscience.pl</title>
-<meta name="description" content="Public projects by kapoost on GitHub: bragent (AdCP SI brand agent), purrsonality-seller-agent, adcp-signals, humanMCP, mysloodsiewnia RAG, seestar-kiosk and more.">
+<meta name="description" content="Public projects by kapoost on GitHub: sail (Rust sailing simulator), bragent (AdCP SI brand agent), purrsonality-seller-agent, abzu, adcp-signals, humanMCP, seestar-kiosk and more.">
 <link rel="canonical" href="https://rocketscience.pl/projects">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5966738693035119" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/styles.css">
@@ -30,6 +30,14 @@
 
   <h2>Active</h2>
 
+  <div class="project" id="sail">
+    <span class="tag">Active</span> <span class="tag">Rust</span> <span class="tag">Bevy</span> <span class="tag">MIT OR Apache-2.0</span>
+    <h3>sail</h3>
+    <p>A sailing simulator in the spirit of a long-haul truck sim: you skipper a small cruising sloop and the point is the passage, not the race. The dynamics are the whole requirement — apparent wind, sail trim, heel and righting moment, leeway, the hull-speed wall, rudder stall, weather helm — rather than a wind arrow and a speed multiplier.</p>
+    <p>Four crates, split so the physics never learns about the renderer: <code>sail-core</code> is the dynamics alone, <code>sail-app</code> is the only crate that knows Bevy 0.20 exists, <code>sail-net</code> carries boat-to-boat traffic and must build for the smallest VM anyone rents, <code>sail-bios</code> the front end. The project site and manual are generated from the repository, key list included, so they cannot drift from the program.</p>
+    <p>Repo: <a href="https://github.com/kapoost/sail">github.com/kapoost/sail</a> · Site + manual: <a href="https://kapoost.github.io/sail">kapoost.github.io/sail</a> · current tag v0.1.19</p>
+  </div>
+
   <div class="project" id="bragent">
     <span class="tag">Active</span> <span class="tag">AdCP SI</span> <span class="tag">Go</span> <span class="tag">Apache-2.0</span>
     <h3>bragent</h3>
@@ -41,8 +49,8 @@
     <span class="tag">In production</span> <span class="tag">AdCP</span> <span class="tag">TypeScript</span>
     <a href="https://agenticadvertising.org/registry/agents/https%3A%2F%2Fseller.purrsonality.rocketscience.pl%2Fmcp"><img alt="AAO Verified Media Buy Agent 3.1" src="https://agenticadvertising.org/api/registry/agents/https%3A%2F%2Fseller.purrsonality.rocketscience.pl%2Fmcp/badge/media-buy/3.1.svg" style="height:1.1em;vertical-align:middle"></a>
     <h3>purrsonality-seller-agent</h3>
-    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk 9.6.2</code> + Postgres + Fly.io. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09. Phase-A ad server attributes live impressions to the correct <code>media_buy_id</code> via reverse creative-assignment lookup, so <code>get_media_buy_delivery</code> returns real numbers instead of zeros. Fly machines run <code>auto_stop=suspend</code> — snapshot wake ~200ms instead of a 3s cold boot.</p>
-    <p>AAO compliance on 3.1: Product Discovery, Creative Management, Reporting &amp; Delivery, Error Handling PASS. Core Protocol + Media Buy Lifecycle PARTIAL (one pagination + one creative-reuse scenario blocked on SDK runtime-projector gaps tracked upstream at <a href="https://github.com/adcontextprotocol/adcp/issues/5723">adcp#5723</a> and <a href="https://github.com/adcontextprotocol/adcp/issues/5797">#5797</a>).</p>
+    <p>Production-grade AdCP seller agent reference implementation. Bun + <code>@adcp/sdk 13.0.4</code> + Postgres + Fly.io. Faza 1 of the seller discovery roadmap (<code>adcp-capabilities.json</code> + RFC 9728) shipped 2026-06-09. Phase-A ad server attributes live impressions to the correct <code>media_buy_id</code> via reverse creative-assignment lookup, so <code>get_media_buy_delivery</code> returns real numbers instead of zeros. Fly machines run <code>auto_stop=suspend</code> — snapshot wake ~200ms instead of a 3s cold boot.</p>
+    <p>AAO compliance on 3.1, as graded in July 2026: Product Discovery, Creative Management, Reporting &amp; Delivery, Error Handling PASS. Core Protocol + Media Buy Lifecycle PARTIAL — one pagination and one creative-reuse scenario were blocked on SDK runtime-projector gaps. Both upstream issues have since closed (<a href="https://github.com/adcontextprotocol/adcp/issues/5723">adcp#5723</a>, <a href="https://github.com/adcontextprotocol/adcp/issues/5797">#5797</a>); the grade above predates that and has not been re-run here. The badge reflects the registry's current view.</p>
     <p>Repo: <a href="https://github.com/kapoost/purrsonality-seller-agent">github.com/kapoost/purrsonality-seller-agent</a> · Live: <a href="https://purrsonality.rocketscience.pl">purrsonality.rocketscience.pl</a></p>
   </div>
 
@@ -65,11 +73,11 @@
     <p>Repo: <a href="https://github.com/kapoost/adcp-signals">github.com/kapoost/adcp-signals</a></p>
   </div>
 
-  <div class="project" id="humanmcp-go">
+  <div class="project" id="humanmcp">
     <span class="tag">Active</span> <span class="tag">Go</span> <span class="tag">Indie web</span>
-    <h3>humanmcp-go</h3>
-    <p>Personal MCP server. Publish poems, images and structured data with Ed25519 signatures so any AI agent can verify provenance offline. Session gate uses a fragment of Polish poetry as the access code. Deployed at <a href="https://kapoost.humanmcp.net">kapoost.humanmcp.net</a>.</p>
-    <p>Repo: <a href="https://github.com/kapoost/humanmcp-go">github.com/kapoost/humanmcp-go</a></p>
+    <h3>humanMCP</h3>
+    <p>Personal MCP server. Publish poems, images and structured data with Ed25519 signatures so any AI agent can verify provenance offline. Session gate uses a fragment of Polish poetry as the access code. The running instance exposes 43 tools, 24 expert personas and 35 skills, plus server-side advisory pipelines (<code>run_narada</code>, <code>prepare_narada</code>) that let an agent convene a panel instead of role-playing one from memory.</p>
+    <p>Two trees, deliberately: <a href="https://github.com/kapoost/humanmcp">humanmcp</a> is the instance deployed at <a href="https://kapoost.humanmcp.net">kapoost.humanmcp.net</a>, and <a href="https://github.com/kapoost/humanmcp-go">humanmcp-go</a> is the packaged open-source variant anyone can self-host (also listed on Smithery).</p>
   </div>
 
   <div class="project" id="humanmcp-marketplace">
@@ -83,7 +91,7 @@
     <span class="tag">Active</span> <span class="tag">Python</span> <span class="tag">RAG</span>
     <h3>mysloodsiewnia</h3>
     <p>Local RAG knowledge vault — index your PDFs, manuals and personal notes; query from AI agents through humanMCP. Designed to run on your laptop, not on a SaaS. The name is a portmanteau of <em>myśl</em> (thought) and <em>odsiewnia</em> (a sieve, a winnowing).</p>
-    <p>Repo: <a href="https://github.com/kapoost/mysloodsiewnia">github.com/kapoost/mysloodsiewnia</a></p>
+    <p>Repository is private; the vault holds personal material and runs locally by design.</p>
   </div>
 
   <h2>Lab pieces</h2>
@@ -102,6 +110,13 @@
     <p>Repo: <a href="https://github.com/kapoost/logoped">github.com/kapoost/logoped</a></p>
   </div>
 
+  <div class="project" id="sampler-lab">
+    <span class="tag">Active</span> <span class="tag">HTML</span> <span class="tag">Audio</span>
+    <h3>sampler-lab</h3>
+    <p>Preparing material for a hardware sampler: measuring recordings, slicing on transients, tagging, and choosing which fragments earn a pad. A workbench for the step between a recording and an instrument.</p>
+    <p>Repo: <a href="https://github.com/kapoost/sampler-lab">github.com/kapoost/sampler-lab</a></p>
+  </div>
+
   <div class="project" id="humanmcp-rpg">
     <span class="tag">Experiment</span> <span class="tag">JavaScript</span>
     <h3>humanmcp-rpg</h3>
@@ -113,14 +128,29 @@
   <p>Small, targeted work on the upstream <a href="https://github.com/adcontextprotocol/adcp">adcontextprotocol/adcp</a> repository — issues that the storyboard runner missed, schema clarifications that close ambiguities, docs that document what implementations actually do.</p>
 
   <ul>
-    <li><strong>Merged</strong>: <a href="https://github.com/adcontextprotocol/adcp/pull/4918">#4918</a> — <code>docs(accounts)</code>: clarify single-publisher cardinality on <code>list_accounts</code>.</li>
+    <li><strong>Merged pull requests</strong>:
+      <a href="https://github.com/adcontextprotocol/adcp/pull/5898">#5898</a> — <code>docs(sync_creatives)</code>: document <code>ctx.input.assignments</code>;
+      <a href="https://github.com/adcontextprotocol/adcp/pull/5642">#5642</a> — <code>docs(si)</code>: residual prose cleanups missed in #5591;
+      <a href="https://github.com/adcontextprotocol/adcp/pull/4918">#4918</a> — <code>docs(accounts)</code>: clarify single-publisher cardinality on <code>list_accounts</code>.
+    </li>
     <li><strong>Open</strong>:
-      <a href="https://github.com/adcontextprotocol/adcp/issues/5541">#5541</a> — <code>feat(si)</code>: bragent ships brand-side reference impl for <code>sponsored_context_accountability</code> (PR <a href="https://github.com/adcontextprotocol/adcp/pull/5501">#5501</a>);
+      <a href="https://github.com/adcontextprotocol/adcp/issues/7552">#7552</a> — a sales-non-guaranteed seller cannot emit a schema-valid <code>adagents.json</code>;
       <a href="https://github.com/adcontextprotocol/adcp/issues/4497">#4497</a> — <code>brand.json</code>: add structural category restrictions and jurisdiction fields.
     </li>
+    <li><strong>Sponsored intelligence</strong>: issue
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5541">#5541</a> — bragent as brand-side reference implementation for <code>sponsored_context_accountability</code> — is closed; the accountability work landed upstream in <a href="https://github.com/adcontextprotocol/adcp/pull/5501">#5501</a> (merged June 2026).
+    </li>
     <li><strong>Closed issues that drove fixes upstream</strong>:
-      <a href="https://github.com/adcontextprotocol/adcp/issues/5449">#5449</a> (<code>--compliance-version</code> not cascaded to AJV validator — version skew),
-      <a href="https://github.com/adcontextprotocol/adcp/issues/5258">#5258</a> (<code>InMemoryTaskRegistry</code> not flushed by <code>AdcpServer.compliance.reset()</code>),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/7551">#7551</a> (two 3.1.20 storyboards assert contradictory requirements),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/6907">#6907</a> (storyboards grade agents FAIL on contracts they do not hold),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/6227">#6227</a> (<code>canonical_product_discovery</code> storyboard assertion),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5797">#5797</a> (SDK 9.3 <code>sync_creatives</code> handler misses top-level assignments),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5723">#5723</a> (<code>comply_test_controller</code> seed_account returns UNKNOWN),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5714">#5714</a> (reference-implementer check-in: what blocks 3.1 graduation),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5707">#5707</a> (<code>verify_impaired</code> fails silently),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5701">#5701</a> (RFC 9421 signed-request sellers cannot pass media-buy scenarios),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5449">#5449</a> (<code>--compliance-version</code> not cascaded to AJV validator),
+      <a href="https://github.com/adcontextprotocol/adcp/issues/5258">#5258</a> (<code>InMemoryTaskRegistry</code> not flushed by <code>compliance.reset()</code>),
       <a href="https://github.com/adcontextprotocol/adcp/issues/5013">#5013</a> (<code>check_publisher_authorization</code> false negative),
       <a href="https://github.com/adcontextprotocol/adcp/issues/4914">#4914</a> (<code>pagination_integrity</code> unsatisfiable for single-publisher sellers),
       <a href="https://github.com/adcontextprotocol/adcp/issues/4832">#4832</a> (v3 envelope integrity vs SDK 7.7.0 drift),

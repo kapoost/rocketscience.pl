@@ -13,7 +13,7 @@ Static HTML site for Rocket Science Lab (kapoost).
 ```
 /                  index.html (hero + featured projects)
 /about.html        bio: CTO / sailor / poet / musician
-/projects.html     Purrsonality, AdCP, Signals, humanMCP
+/projects.html     sail, AdCP (bragent, Purrsonality, Abzu, Signals), humanMCP
 /writing.html      short poems (PL + EN)
 /privacy.html      AdSense + GDPR
 /contact.html      email, humanMCP, AdCP routes
